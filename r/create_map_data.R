@@ -15,8 +15,16 @@ library(geojsonsf)
 # read the data
 locations<-read.csv("data/locations.csv")
 
+# duplicate data
+all_data <- locations
+# add id to all_data
+all_data$id<-c(1:dim(all_data)[[1]])
+
+# only keep city, state, country, lat, long columns
+locations <- locations[,1:5]
+
 #add id column
-locations$id<-c(1:dim(locations)[[1]])
+#locations$id<-c(1:dim(locations)[[1]])
 
 
 
@@ -41,7 +49,9 @@ if (dim(to_geocode)[1]>0){ #if there is more than 0 rows to geocode
   
 }else{to_plot<-has_latlong}
 
+#join extra columns back on
 
+to_plot <- cbind(to_plot,all_data[,6:dim(locations)[[1]]])
 
 
 # write the data back to the csv so don't need to geocode every line every time it updates
