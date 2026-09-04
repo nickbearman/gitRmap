@@ -33,7 +33,7 @@ to_geocode<-locations[which(is.na(locations$lat)), c("city", "state", "country",
 
 if (dim(to_geocode)[1]>0){ #if there is more than 0 rows to geocode
   # geocode the new rows
-  new_latlong<-to_geocode %>% 
+  new_latlong<-to_geocode |>
     geocode(city=city,
             state=state,
             country=country,
